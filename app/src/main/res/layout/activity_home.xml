@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="功能列表"
+        style="@style/TitleStytle" />
+
+    <TextView
+        android:padding="5dp"
+        android:text="了覅安抚了二哥过了寄了个爱上了空间个哥拉斯卡几个蓝色个阿拉斯加辐射力嘎死了个案是噶是垃圾狗来说"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--android:ellipsize="marquee"：指定省略位置
+        实现跑马灯效果
+        android:singleLine="true"
+        android:ellipsize="marquee"     跑马灯模式
+        android:marqueeRepeatLimit="marquee_forever"    永久滚动
+        android:focusable="true"      获取焦点
+        android:focusableInTouchMode="true"     获取触摸焦点-->
+
+    <!--android:verticalSpacing="10dp":指定内部条目竖直方向上的间距-->
+    <GridView
+        android:id="@+id/gv_home"
+        android:numColumns="3"
+        android:verticalSpacing="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </GridView>
+</LinearLayout>

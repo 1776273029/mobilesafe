@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mobilesafe</string>
+    <string name="device_admin">超级管理员</string>
+    <string name="device_admin_des">一键激活，一键锁屏，一键卸载，一键清除数据</string>
 </resources>
