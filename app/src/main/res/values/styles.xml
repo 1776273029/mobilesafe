@@ -52,4 +52,14 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="AToolItem">
+        <item name="android:drawableLeft">@android:drawable/stat_notify_error</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_atool_item</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

@@ -19,9 +19,10 @@ public class SetupOverActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setup_over);
         boolean setup_over = SpUtil.getBoolean(this, ConstantValue.SETUP_OVER,false);
         if (setup_over){
-            setContentView(R.layout.activity_setup_over);
+
         }else {
             Intent intent = new Intent(this,Setup1Activity.class);
             startActivity(intent);

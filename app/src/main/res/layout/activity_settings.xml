@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -17,12 +18,33 @@
         mine:desoff="自动更新已关闭"/>
     <com.test.android.mobilesafe.view.SettingItemView
         xmlns:mine="http://schemas.android.com/apk/res/com.test.android.mobilesafe"
-        android:id="@+id/siv_call"
+        android:id="@+id/siv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         mine:destitle="电话归属地的显示设置"
         mine:deson="归属地显示已开启"
         mine:desoff="归属地显示已关闭"/>
+
+    <com.test.android.mobilesafe.view.SettingClickView
+        android:id="@+id/scv_toast_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.test.android.mobilesafe.view.SettingClickView>
+
+    <com.test.android.mobilesafe.view.SettingClickView
+        android:id="@+id/scv_toast_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.test.android.mobilesafe.view.SettingClickView>
+
+    <com.test.android.mobilesafe.view.SettingItemView
+        xmlns:mine="http://schemas.android.com/apk/res/com.test.android.mobilesafe"
+        android:id="@+id/siv_blacknumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mine:destitle="黑名单拦截设置"
+        mine:deson="黑名单拦截已开启"
+        mine:desoff="黑名单拦截已关闭"/>
 
 
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:background="@mipmap/ic_launcher"
+        android:layout_marginRight="10dp"
+        android:id="@+id/iv_appinfo_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:singleLine="true"
+            android:textColor="#666"
+            android:id="@+id/tv_app_name"
+            android:text="应用名称"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <TextView
+            android:singleLine="true"
+            android:textColor="#666"
+            android:id="@+id/tv_app_path"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:gravity="center_vertical"
+            android:text="应用安装路径"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

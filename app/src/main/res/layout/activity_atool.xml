@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/TitleStytle"
+        android:text="高级工具"/>
+
+    <TextView
+        android:id="@+id/tv_query_phone_address"
+        android:text="归属地查询"
+        style="@style/AToolItem" />
+    <TextView
+        android:id="@+id/tv_backup_sms"
+        android:text="短信备份"
+        style="@style/AToolItem" />
+    
+</LinearLayout>

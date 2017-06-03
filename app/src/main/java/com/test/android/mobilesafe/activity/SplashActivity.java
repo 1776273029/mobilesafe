@@ -29,6 +29,8 @@ import com.test.android.mobilesafe.util.StreamUtil;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,6 +45,7 @@ public class SplashActivity extends Activity {
     private String versionDes;
     private String downloadUrl;
     private RelativeLayout rl_root;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,52 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
         initAnimation();
+        initDB();
+    }
+
+    private void initDB() {
+        //归属地数据库拷贝过程
+        initAddressDB("address.db");
+    }
+
+
+    private void initAddressDB(String dbName) {
+//        getCacheDir();
+//        Environment.getExternalStorageDirectory().getAbsolutePath();
+        //在files文件夹下创建同名数据库文件
+        File files = getFilesDir();
+        File file = new File(files,dbName);
+        if (file.exists()){
+            return;
+        }
+        InputStream stream = null;
+        FileOutputStream fos = null;
+        try {
+            //输入流读取第三方资产目录下的文件
+            stream = getAssets().open(dbName);
+            //将读取的内容写入到指定文件中
+            fos = new FileOutputStream(file);
+            //每次读取内容大小
+            byte[] bytes = new byte[1024];
+            int temp = -1;
+            while ((temp = stream.read(bytes)) != -1){
+                fos.write(bytes,0,temp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (stream != null){
+                    stream.close();
+                }
+                if (fos != null){
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     //添加淡入的动画效果
