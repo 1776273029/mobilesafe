@@ -42,7 +42,7 @@ public class BlackNumberService extends Service {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
-        filter.setPriority(Integer.MAX_VALUE);//设置优先级
+        filter.setPriority(800);//设置优先级
         smsReceiver = new InnerSmsReceiver();
         registerReceiver(smsReceiver,filter);
 

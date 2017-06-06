@@ -18,6 +18,8 @@ public class AToolActivity extends AppCompatActivity {
 
     private TextView tv_query_address;
     private TextView tv_backup_sms;
+    private TextView tv_number_query;
+    private TextView tv_app_lock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,28 @@ public class AToolActivity extends AppCompatActivity {
         setContentView(R.layout.activity_atool);
         initPhoneAddress();
         initBackupSms();
+        initCommonNumberQuery();
+        initAppLock();
+    }
+
+    private void initAppLock() {
+        tv_app_lock = (TextView) findViewById(R.id.tv_app_lock);
+        tv_app_lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),AppLockActivity.class));
+            }
+        });
+    }
+
+    private void initCommonNumberQuery() {
+        tv_number_query = (TextView) findViewById(R.id.tv_commonnumber_query);
+        tv_number_query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),CommonNumberQueryActivity.class));
+            }
+        });
     }
 
     private void initBackupSms() {
@@ -39,7 +63,7 @@ public class AToolActivity extends AppCompatActivity {
 
     private void showBackupSmsDialog() {
         final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setIcon(R.mipmap.ic_launcher);
+        dialog.setIcon(R.drawable.main_icon);
         dialog.setTitle("短信备份");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.show();

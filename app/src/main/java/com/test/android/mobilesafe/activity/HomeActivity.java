@@ -2,6 +2,7 @@ package com.test.android.mobilesafe.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -188,6 +189,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView itemName = (TextView) view.findViewById(R.id.tv_item_name);
             ImageView itemIcon = (ImageView) view.findViewById(R.id.iv_icon);
             itemName.setText(myTitleStr[position]);
+            itemName.setTextColor(Color.BLACK);
             itemIcon.setBackgroundResource(mDrawableIds[position]);
 
             return view;

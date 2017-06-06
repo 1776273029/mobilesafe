@@ -109,7 +109,7 @@ public class AddressService extends Service {
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         //指定格式
         params.format = PixelFormat.TRANSLUCENT;
-        params.type = WindowManager.LayoutParams.TYPE_PHONE;//级别（与电话类型一致）
+        params.type = WindowManager.LayoutParams.TYPE_TOAST;//级别（与电话类型一致，7.0后不可用）
         params.setTitle("Toast");//标题
         params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;//不能获取焦点

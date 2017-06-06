@@ -17,6 +17,6 @@ public class ConstantValue {
     public static final String LOCATION_Y = "location_y";
     public static final String ROCKET_X = "rocket_x";
     public static final String ROCKET_Y = "rocket_y";
-    public static final String OPEN_BLACK_NUMBER = "open_black_number";
     public static final String SHOW_SYSTEM = "show_system";
+    public static final String HAS_SHORTCUT = "has_shortcut";
 }

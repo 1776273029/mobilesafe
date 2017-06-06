@@ -3,15 +3,14 @@ package com.test.android.mobilesafe.engine;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Debug;
+import android.provider.SyncStateContract;
 
 import com.jaredrummler.android.processes.AndroidProcesses;
+import com.jaredrummler.android.processes.ProcessManager;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
-import com.jaredrummler.android.processes.models.Stat;
-import com.jaredrummler.android.processes.models.Statm;
 import com.test.android.mobilesafe.R;
 import com.test.android.mobilesafe.domain.ProcessInfo;
 
@@ -134,7 +133,7 @@ public class ProcessInfoProvider {
                         }
                     } catch (PackageManager.NameNotFoundException e) {
                         process.name = info.processName;
-                        process.icon = context.getResources().getDrawable(R.mipmap.ic_launcher);
+                        process.icon = context.getResources().getDrawable(R.drawable.main_icon);
                         process.isSystem = true;
                         e.printStackTrace();
                     }
@@ -173,7 +172,7 @@ public class ProcessInfoProvider {
                     }
                 } catch (PackageManager.NameNotFoundException e) {
                     process.name = processInfo.processName;
-                    process.icon = context.getResources().getDrawable(R.mipmap.ic_launcher);
+                    process.icon = context.getResources().getDrawable(R.drawable.main_icon);
                     process.isSystem = true;
                     e.printStackTrace();
                 }
@@ -200,4 +199,7 @@ public class ProcessInfoProvider {
             mAM.killBackgroundProcesses(process.packageName);
         }
     }
+
+
 }
+

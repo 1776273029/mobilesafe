@@ -10,7 +10,7 @@
 
     <TextView
         android:padding="5dp"
-        android:text="了覅安抚了二哥过了寄了个爱上了空间个哥拉斯卡几个蓝色个阿拉斯加辐射力嘎死了个案是噶是垃圾狗来说"
+        android:text="欢迎使用手机卫士      欢迎使用手机卫士        欢迎使用手机卫士        "
         android:singleLine="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"

@@ -66,15 +66,36 @@ public class SplashActivity extends Activity {
         }
         initAnimation();
         initDB();
+        if (!SpUtil.getBoolean(this,ConstantValue.HAS_SHORTCUT,false)){
+            initShortCut();
+        }
+    }
+
+    //生成快捷方式
+    private void initShortCut() {
+        Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+        //维护图标
+        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, android.graphics.
+                BitmapFactory.decodeResource(getResources(),R.drawable.main_icon));
+        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME,"黑马卫士");//快捷方式名称
+        //点击快捷方式后跳转的activity
+        //维护开启的意图对象
+        Intent shortCutIntent = new Intent("mobilesafe.action.HOME");
+        shortCutIntent.addCategory("android.intent.category.DEFAULT");
+
+        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT,shortCutIntent);
+        //发送广播
+        sendBroadcast(intent);
+        SpUtil.putBoolean(this,ConstantValue.HAS_SHORTCUT,true);
     }
 
     private void initDB() {
         //归属地数据库拷贝过程
-        initAddressDB("address.db");
+        initLocalDB("address.db");
+        initLocalDB("commonnum.db");
     }
 
-
-    private void initAddressDB(String dbName) {
+    private void initLocalDB(String dbName) {
 //        getCacheDir();
 //        Environment.getExternalStorageDirectory().getAbsolutePath();
         //在files文件夹下创建同名数据库文件
@@ -169,7 +190,7 @@ public class SplashActivity extends Activity {
     private void showUpdateDialog(){
         //对话框是依赖于activity实现的
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.mipmap.ic_launcher);//左上角图标
+        builder.setIcon(R.drawable.main_icon);//左上角图标
         builder.setTitle("版本更新");
         builder.setMessage(versionDes);
         builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {

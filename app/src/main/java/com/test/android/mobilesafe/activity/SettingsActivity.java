@@ -1,13 +1,19 @@
 package com.test.android.mobilesafe.activity;
 
 import android.Manifest;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.SQLException;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -19,12 +25,15 @@ import android.widget.Toast;
 
 import com.test.android.mobilesafe.R;
 import com.test.android.mobilesafe.service.AddressService;
+import com.test.android.mobilesafe.service.AppLockService;
 import com.test.android.mobilesafe.service.BlackNumberService;
 import com.test.android.mobilesafe.util.ConstantValue;
 import com.test.android.mobilesafe.util.ServiceUtil;
 import com.test.android.mobilesafe.util.SpUtil;
 import com.test.android.mobilesafe.view.SettingClickView;
 import com.test.android.mobilesafe.view.SettingItemView;
+
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -33,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
     private int mToastStyle;
     private SettingClickView scv_toast_location;
     private SettingItemView siv_blacknumber;
+    private SettingItemView siv_appLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,54 @@ public class SettingsActivity extends AppCompatActivity {
         initToastStyle();
         initLocation();
         initBlackNumber();
+        initAppLock();
+    }
+
+    private void initAppLock() {
+        siv_appLock = (SettingItemView) findViewById(R.id.siv_app_lock);
+        boolean isRunning = ServiceUtil.isRunning(this,
+                "com.test.android.mobilesafe.service.AppLockService");
+        siv_appLock.setCheck(isRunning);
+        siv_appLock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isCheck = siv_appLock.isCheck();
+                siv_appLock.setCheck(!isCheck);
+                if (!isCheck) {
+                    if (isNoOptions()) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            if (!isNoSwitch()) {
+                                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                                startActivity(intent);
+                            }
+                        }
+                        startService(new Intent(getApplicationContext(), AppLockService.class));
+                    } else {
+                        stopService(new Intent(getApplicationContext(), AppLockService.class));
+                    }
+                }
+            }
+        });
+    }
+                //判断是否拥有查看权限
+    private boolean isNoOptions() {
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    //判断是否选中
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private boolean isNoSwitch() {
+        long dujinyang = System.currentTimeMillis();
+        UsageStatsManager usageStatsManager = (UsageStatsManager) getApplicationContext().getSystemService("usagestats");
+        List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(
+                UsageStatsManager.INTERVAL_BEST, 0, dujinyang );
+        if (queryUsageStats == null || queryUsageStats.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private void initBlackNumber() {
@@ -93,7 +151,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void showToastStyleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(R.drawable.main_icon);
         builder.setTitle("请选择归属地样式");
         mToastStyle = SpUtil.getInt(this,ConstantValue.TOAST_STYLE,0);
         builder.setSingleChoiceItems(mToastStyleDes, mToastStyle, new DialogInterface.OnClickListener() {

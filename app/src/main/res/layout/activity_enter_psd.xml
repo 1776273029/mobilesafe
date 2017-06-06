@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_appIcon"
+        android:background="@drawable/main_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/tv_appName"
+        android:text="应用名称"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:maxLength="6"
+        android:hint="******"
+        android:id="@+id/et_lock_psd"
+        android:inputType="numberPassword"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="确认"
+        android:id="@+id/bt_submit_psd"
+        android:layout_width="60dp"
+        android:layout_height="40dp" />
+
+</LinearLayout>

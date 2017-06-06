@@ -16,5 +16,13 @@
         android:id="@+id/tv_backup_sms"
         android:text="短信备份"
         style="@style/AToolItem" />
+    <TextView
+        android:id="@+id/tv_commonnumber_query"
+        android:text="常用号码查询"
+        style="@style/AToolItem" />
+    <TextView
+        android:id="@+id/tv_app_lock"
+        android:text="程序锁"
+        style="@style/AToolItem" />
     
 </LinearLayout>

@@ -46,6 +46,16 @@
         mine:deson="黑名单拦截已开启"
         mine:desoff="黑名单拦截已关闭"/>
 
+    <com.test.android.mobilesafe.view.SettingItemView
+        xmlns:mine="http://schemas.android.com/apk/res/com.test.android.mobilesafe"
+        android:id="@+id/siv_app_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mine:destitle="程序锁设置"
+        mine:deson="程序锁已开启"
+        mine:desoff="程序锁已关闭"/>
+
+
 
 
 </LinearLayout>

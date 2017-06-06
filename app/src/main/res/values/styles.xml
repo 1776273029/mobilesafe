@@ -62,4 +62,8 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="widget_text">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">@color/textColorPrimaryDark</item>
+    </style>
 </resources>
