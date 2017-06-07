@@ -40,7 +40,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <!-- 任务栈相关权限 -->
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
@@ -197,10 +197,12 @@
             android:enabled="true"
             android:exported="true" />
 
-        <!--拦截界面要在一个单独的任务栈中，不需要显示最近运行的图标-->
-        <activity android:name=".activity.EnterPsdActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"></activity>
+        <!-- 拦截界面要在一个单独的任务栈中，不需要显示最近运行的图标 -->
+        <activity
+            android:name=".activity.EnterPsdActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.AnitVirusActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--分别设置进度条不同进度时所对应的图片-->
+    <item android:id="@android:id/background" android:drawable="@drawable/security_progress_bg"/>
+    <item android:id="@android:id/secondaryProgress" android:drawable="@drawable/security_progress"/>
+    <item android:id="@android:id/progress" android:drawable="@drawable/security_progress"/>
+</layer-list>

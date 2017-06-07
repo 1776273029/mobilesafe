@@ -67,6 +67,9 @@ public class HomeActivity extends AppCompatActivity {
                     case 3:
                         startActivity(new Intent(getApplicationContext(),ProcessManagerActivity.class));
                         break;
+                    case 5:
+                        startActivity(new Intent(getApplicationContext(),AnitVirusActivity.class));
+                        break;
                     case 7:
                         startActivity(new Intent(getApplicationContext(),AToolActivity.class));
                         break;

@@ -93,6 +93,7 @@ public class SplashActivity extends Activity {
         //归属地数据库拷贝过程
         initLocalDB("address.db");
         initLocalDB("commonnum.db");
+        initLocalDB("antivirus.db");
     }
 
     private void initLocalDB(String dbName) {
