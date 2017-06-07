@@ -67,17 +67,17 @@ public class SettingsActivity extends AppCompatActivity {
                 boolean isCheck = siv_appLock.isCheck();
                 siv_appLock.setCheck(!isCheck);
                 if (!isCheck) {
-                    if (isNoOptions()) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (isNoOptions()) {
                             if (!isNoSwitch()) {
                                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                                 startActivity(intent);
                             }
                         }
-                        startService(new Intent(getApplicationContext(), AppLockService.class));
-                    } else {
-                        stopService(new Intent(getApplicationContext(), AppLockService.class));
                     }
+                    startService(new Intent(getApplicationContext(), AppLockService.class));
+                } else {
+                    stopService(new Intent(getApplicationContext(), AppLockService.class));
                 }
             }
         });

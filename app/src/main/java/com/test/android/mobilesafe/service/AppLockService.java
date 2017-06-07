@@ -66,16 +66,16 @@ public class AppLockService extends Service {
         new Thread(){
             public void run(){
                 lockApps = dao.findAll();
-                mAM = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                mUsageStatsManager = (UsageStatsManager)getSystemService(Context.USAGE_STATS_SERVICE);
                 packageName = null;
                 while (isWatch) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
                         //检测正在开启的应用（任务栈）
+                        mAM = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                         runningTasks = mAM.getRunningTasks(1);
                         runningTaskInfo = runningTasks.get(0);
                         packageName = runningTaskInfo.topActivity.getPackageName();
                     }else {
+                        mUsageStatsManager = (UsageStatsManager)getSystemService(Context.USAGE_STATS_SERVICE);
                         time = System.currentTimeMillis();
                         stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000*2, time);
                         if(stats != null) {
