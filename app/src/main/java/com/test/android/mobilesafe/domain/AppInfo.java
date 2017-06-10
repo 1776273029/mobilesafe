@@ -13,4 +13,5 @@ public class AppInfo {
     public Drawable icon;
     public boolean isSDCard;
     public boolean isSystem;
+    public int uid;
 }

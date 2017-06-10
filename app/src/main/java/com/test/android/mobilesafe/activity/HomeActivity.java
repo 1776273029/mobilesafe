@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +22,13 @@ import com.test.android.mobilesafe.R;
 import com.test.android.mobilesafe.util.ConstantValue;
 import com.test.android.mobilesafe.util.MD5Util;
 import com.test.android.mobilesafe.util.SpUtil;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -67,8 +75,14 @@ public class HomeActivity extends AppCompatActivity {
                     case 3:
                         startActivity(new Intent(getApplicationContext(),ProcessManagerActivity.class));
                         break;
+                    case 4:
+                        startActivity(new Intent(getApplicationContext(),TrafficActivity.class));
+                        break;
                     case 5:
                         startActivity(new Intent(getApplicationContext(),AnitVirusActivity.class));
+                        break;
+                    case 6:
+                        startActivity(new Intent(getApplicationContext(),BaseCacheClearActivity.class));
                         break;
                     case 7:
                         startActivity(new Intent(getApplicationContext(),AToolActivity.class));

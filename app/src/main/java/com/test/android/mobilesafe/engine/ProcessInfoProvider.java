@@ -1,6 +1,8 @@
 package com.test.android.mobilesafe.engine;
 
 import android.app.ActivityManager;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -15,10 +17,13 @@ import com.test.android.mobilesafe.R;
 import com.test.android.mobilesafe.domain.ProcessInfo;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static android.app.ActivityManager.MemoryInfo;
 import static android.app.ActivityManager.RunningAppProcessInfo;
@@ -33,7 +38,14 @@ public class ProcessInfoProvider {
         ActivityManager mAM = (ActivityManager) context.
                 getSystemService(Context.ACTIVITY_SERVICE);
         //获取正在运行内存的集合
-        if (Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT >= 23){
+            UsageStatsManager mUsageStatsManager = (UsageStatsManager)context.
+                    getSystemService(Context.USAGE_STATS_SERVICE);
+            long time = System.currentTimeMillis();
+            List<UsageStats> stats = mUsageStatsManager.queryUsageStats(
+                    UsageStatsManager.INTERVAL_DAILY, time - 1000*60, time);
+            return stats.size();
+        } else if (Build.VERSION.SDK_INT >= 21){
             List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
             return processes.size();
         }else {
@@ -103,7 +115,40 @@ public class ProcessInfoProvider {
         ActivityManager mAM = (ActivityManager) context.
                 getSystemService(Context.ACTIVITY_SERVICE);
         PackageManager mPM = context.getPackageManager();
-        if (Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT > 23){
+            List<ProcessInfo> processInfoList = new ArrayList<ProcessInfo>();
+            try{
+                String packageName = null;
+                ApplicationInfo appInfo = null;
+                ProcessInfo processInfo = null;
+                UsageStatsManager mUsageStatsManager = (UsageStatsManager)context.
+                        getSystemService(Context.USAGE_STATS_SERVICE);
+                long time = System.currentTimeMillis();
+                List<UsageStats> stats = mUsageStatsManager.queryUsageStats(
+                    UsageStatsManager.INTERVAL_DAILY, time - 1000*60, time);
+                if(stats != null) {
+                    for (UsageStats usageStats : stats) {
+                        packageName = usageStats.getPackageName();
+                        appInfo = mPM.getApplicationInfo(packageName, 0);
+//                        appInfo.processName;
+                        processInfo = new ProcessInfo();
+                        processInfo.name = appInfo.loadLabel(mPM).toString();
+                        processInfo.icon = appInfo.loadIcon(mPM);
+                        processInfo.packageName = packageName;
+                        if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM)
+                                == ApplicationInfo.FLAG_SYSTEM){
+                            processInfo.isSystem = true;
+                        }else {
+                            processInfo.isSystem = false;
+                        }
+                        processInfoList.add(processInfo);
+                    }
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            return processInfoList;
+        } else if (Build.VERSION.SDK_INT >= 21){
             //List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
             List<ActivityManager.RunningAppProcessInfo> processesInfo = AndroidProcesses.getRunningAppProcessInfo(context);
             List<ProcessInfo> processInfoList = new ArrayList<ProcessInfo>();
@@ -199,7 +244,6 @@ public class ProcessInfoProvider {
             mAM.killBackgroundProcesses(process.packageName);
         }
     }
-
 
 }
 

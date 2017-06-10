@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-                //判断是否拥有查看权限
+    //判断是否拥有查看权限
     private boolean isNoOptions() {
         PackageManager packageManager = getApplicationContext().getPackageManager();
         Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);

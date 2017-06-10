@@ -1,13 +1,23 @@
 package com.test.android.mobilesafe.activity;
 
 import android.app.ActivityManager;
+import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.text.format.Formatter;
+import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -15,8 +25,10 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,9 +73,39 @@ public class ProcessManagerActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process_manager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (isNoOptions()) {
+                if (!isNoSwitch()) {
+                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                    startActivity(intent);
+                }
+            }
+        }
         initUI();
         initTitleData();
         initListData();
+    }
+    
+
+    //判断是否拥有查看权限
+    private boolean isNoOptions() {
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    //判断是否选中
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private boolean isNoSwitch() {
+        long dujinyang = System.currentTimeMillis();
+        UsageStatsManager usageStatsManager = (UsageStatsManager) getApplicationContext().getSystemService(Context.USAGE_STATS_SERVICE);
+        List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(
+                UsageStatsManager.INTERVAL_BEST, 0, dujinyang );
+        if (queryUsageStats == null || queryUsageStats.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private void initListData() {
@@ -369,8 +411,12 @@ public class ProcessManagerActivity extends AppCompatActivity implements View.On
                 }
                 holder.iv_icon.setBackground(getItem(position).icon);
                 holder.tv_name.setText(getItem(position).name);
-                holder.tv_memSize.setText("内存占用：" + Formatter.
-                        formatFileSize(getApplicationContext(),getItem(position).memSize));
+                if(Build.VERSION.SDK_INT >= 23){
+                    holder.tv_memSize.setText(String.valueOf(getItem(position).memSize));
+                }else {
+                    holder.tv_memSize.setText("内存占用：" + Formatter.
+                            formatFileSize(getApplicationContext(),getItem(position).memSize));
+                }
                 if (getItem(position).packageName.equals(getPackageName())){
                     holder.cb_isCheck.setVisibility(View.GONE);
                 }else {
